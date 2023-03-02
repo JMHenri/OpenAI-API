@@ -469,11 +469,26 @@ type ListFineTuneEventsResponse = {
   data: FineTuneEvent[];
 }
 
-//Moderations
 type DeleteFineTuneResponse = {
   id: string;
   object: string;
   deleted: boolean;
+}
+
+//Moderations
+type CreateModerationRequest = {
+  input: string;
+  model?: string;
+}
+
+type CreateModerationResponse = {
+  id: string;
+  model: string;
+  results: {
+    categories: Categories;
+    category_scores: CategoryScores;
+    flagged: boolean;
+  }[];
 }
 
 
@@ -526,4 +541,6 @@ export type {
   ListFineTuneEventsRequest,
   ListFineTuneEventsResponse,
   DeleteFineTuneResponse,
+  CreateModerationRequest,
+  CreateModerationResponse,
 };
