@@ -61,13 +61,13 @@ import {
   ImageVariationRequest,
   ImageEditResponse,
   ImageResponse,
-  EmbeddingRequest,
-  EmbeddingsResponse,
+  CreateEmbeddingRequest,
+  CreateEmbeddingsResponse,
   CreateTranscriptionRequest,
   CreateTranscriptionResponse,
   CreateTranslationRequest,
   CreateTranslationResponse,
-  ListFileResponse,
+  ListFilesResponse,
   UploadFileRequest,
   UploadFileResponse,
   DeleteFileRequest,
@@ -83,14 +83,14 @@ import {
 export class OpenAI {
   private apiKey: string;
   
-  //Authentication
+  // Authentication
   constructor(apiKey: string) {
     this.apiKey = apiKey;
   }
 
-  //Models
-  //List models
-  async listModels(): Promise<Models> {
+  // Models
+  // List models
+  async listModels(): Promise<ListModelsResponse> {
     const response = await fetch("https://api.openai.com/v1/models", {
       method: "GET",
       headers: {
@@ -100,8 +100,8 @@ export class OpenAI {
     });
     return response.json();
   }
-  //Retrieve a model
-  async retrieveModel(modelId: AvailableModels): Promise<Models> {
+  // Retrieve a model
+  async retrieveModel(modelId: AvailableModels | AvailableChatModels): Promise<RetrieveModelResponse> {
     const response = await fetch(`https://api.openai.com/v1/models/${modelId}`, {
       method: "GET",
       headers: {
@@ -114,8 +114,8 @@ export class OpenAI {
 
 
 
-  //Completions
-  async createCompletion(request: CompletionRequest): Promise<CompletionResponse> {
+  // Completions
+  async createCompletion(request: CreateCompletionRequest): Promise<CreateCompletionResponse> {
     const response = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
@@ -128,8 +128,8 @@ export class OpenAI {
   }
 
 
-  //Chat
-  async createChatCompletion(request: CompletionRequest): Promise<CompletionResponse> {
+  // Chat
+  async createChatCompletion(request: CreateChatCompletionRequest): Promise<CreateChatCompletionResponse> {
     const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", {
       method: "POST",
       headers: {
@@ -141,9 +141,9 @@ export class OpenAI {
     return response.json();
   }
 
-  //Edits
-  //Create an edit
-  async createEdit(request: EditRequest): Promise<EditResponse> {
+  // Edits
+  // Create an edit
+  async createEdit(request: CreateEditRequest): Promise<CreateEditResponse> {
     const response = await fetch("https://api.openai.com/v1/edits", {
       method: "POST",
       headers: {
@@ -157,8 +157,8 @@ export class OpenAI {
 
 
 
-  //Images
-  //Create an image
+  // Images
+  // Create an image
   async createImage(request: ImageRequest): Promise<ImageResponse> {
     const response = await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
@@ -171,7 +171,7 @@ export class OpenAI {
     return response.json();
   }
 
-  //Create image edit
+  // Create image edit
   async createImageEdit(request: ImageEditRequest): Promise<ImageResponse> {
     const response = await fetch("https://api.openai.com/v1/images/edits", {
       method: "POST",
@@ -184,13 +184,9 @@ export class OpenAI {
     return response.json();
   }
 
-  //Create image variation
+  // Create image variation
   async createImageVariation(request: ImageVariationRequest): Promise<ImageResponse> {
-
-
-
-  async createModeration(request: ModerationRequest): Promise<ModerationResponse> {
-    const response = await fetch("https://api.openai.com/v1/moderations", {
+    const response = await fetch("https://api.openai.com/v1/images/variations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -200,18 +196,71 @@ export class OpenAI {
     });
     return response.json();
   }
-  async getModels(): Promise<Models> {
-    const response = await fetch("https://api.openai.com/v1/models", {
-      method: "GET",
+
+
+  // Embeddings
+  async createEmbedding(request: CreateEmbeddingRequest): Promise<CreateEmbeddingsResponse> {
+    const response = await fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(request),
+    });
+    return response.json();
+  }
+
+
+  // Audio
+  async createTranscription(request: CreateTranscriptionRequest): Promise<CreateTranscriptionResponse> {
+    const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(request),
+    });
+    return response.json();
+  }
+
+  async createTranslation(request: CreateTranslationRequest): Promise<CreateTranslationResponse> {
+    const response = await fetch("https://api.openai.com/v1/audio/translations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(request),
+    });
+    return response.json();
+  }
+
+  // Files
+  async listFiles(): Promise<ListFilesResponse> {
+    const response = await fetch("https://api.openai.com/v1/files", {
+      method: "GET",
+      headers: {
         Authorization: `Bearer ${this.apiKey}`,
       },
     });
     return response.json();
   }
 
-  async getFineTune(fineTuneId): Promise<FineTuneResponse> {
+  async uploadFile(file: UploadFileRequest): Promise<UploadFileResponse> {
+    const response = await fetch("https://api.openai.com/v1/files", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(file),
+    });
+    return response.json();
+  }
+
+  // Fine-Tunes
+  async getFineTune(fineTuneId): Promise<GetFineTuneResponse> {
     const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
       method: "GET",
       headers: {
@@ -247,17 +296,26 @@ export class OpenAI {
     });
     return response.json();
   }
-  async uploadFile(fileData: Uint8Array, fileName: string): Promise<FileResponse> {
-    const form = new FormData();
-    form.append('purpose', 'fine-tune');
-    form.append('file', new Blob([fileData]), fileName);
 
-    const response = await fetch(`https://api.openai.com/v1/files`, {
+  // Moderations
+  async createModeration(request: ModerationRequest): Promise<ModerationResponse> {
+    const response = await fetch("https://api.openai.com/v1/moderations", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${this.apiKey}`,
       },
-      body: form
+      body: JSON.stringify(request),
+    });
+    return response.json();
+  }
+  async getModels(): Promise<Models> {
+    const response = await fetch("https://api.openai.com/v1/models", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
     });
     return response.json();
   }

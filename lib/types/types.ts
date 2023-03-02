@@ -239,13 +239,13 @@ type ImageResponse = {
 }
 
 //Embeddings
-type EmbeddingRequest = {
+type CreateEmbeddingRequest = {
   model: string,
   input: string | string[],
   user: string,
 }
 
-type EmbeddingsResponse = {
+type CreateEmbeddingsResponse = {
   object: string;
   data: {
     object: string;
@@ -285,7 +285,7 @@ type CreateTranslationResponse = {
 }
 
 // Files
-type ListFileResponse = {
+type ListFilesResponse = {
   object: "file";
   id: string;
   purpose: "fine-tune" | "fine-tune-results" | "fine-tune-train" | "fine-tune-validate";
@@ -354,7 +354,6 @@ type CreateFineTuneRequest = {
   suffix?: string;
 }
 
-
 type CreateFineTuneResponse = {
   object: "fine-tune";
   id: string;
@@ -390,9 +389,46 @@ type CreateFineTuneResponse = {
   }[]
 }
 
+type ListFineTunesResponse = {
+  object: "list";
+  data: {
+    id: string;
+    object: "fine-tune";
+    model: string;
+    created_at: number;
+    fine_tuned_model: any | null;
+    hyperparams: any;
+    organization_id: string;
+    result_files: any[];
+    status: "pending" | "running" | "completed" | "failed";
+    validation_files: any[];
+    training_files: any[];
+    updated_at: number;
+  }[];
+}
+
+type RetrieveFineTuneResponse = {
+  id: string;
+  object: "fine-tune";
+  model: string;
+  created_at: number;
+  events: {
+    object: "fine-tune-event",
+    created_at: number,
+    level: "info" | "warning" | "error",
+    message: string
+  }[];
+  fine_tuned_model: any | null;
+  hyperparams: any;
+  organization_id: string;
+  result_files: any[];
+  status: "pending" | "running" | "completed" | "failed";
+  validation_files: any[];
+  training_files: any[];
+  updated_at: number;
+}
 
 //Moderations
-
 
 
 
@@ -422,13 +458,13 @@ export type {
   ImageVariationRequest,
   ImageEditResponse,
   ImageResponse,
-  EmbeddingRequest,
-  EmbeddingsResponse,
+  CreateEmbeddingRequest,
+  CreateEmbeddingsResponse,
   CreateTranscriptionRequest,
   CreateTranscriptionResponse,
   CreateTranslationRequest,
   CreateTranslationResponse,
-  ListFileResponse,
+  ListFilesResponse,
   UploadFileRequest,
   UploadFileResponse,
   DeleteFileRequest,
@@ -437,5 +473,7 @@ export type {
   RetrieveFileResponse,
   RetrieveFileContentRequest,
   CreateFineTuneRequest,
-  CreateFineTuneResponse
+  CreateFineTuneResponse,
+  ListFineTunesResponse,
+  RetrieveFineTuneResponse
 };
