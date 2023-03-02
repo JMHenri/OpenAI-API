@@ -36,10 +36,10 @@ This file is part of the OpenAI API Deno Client library.
 11.1 Create moderation
 */
 
+// General
 type AvailableModels = {
   model: "ada" | "babbage" | "curie" | "davinci"
 }
-
 
 type AvailableChatModels = {
   model: "gpt-3.5-turbo" | "gpt-3.5-turbo-0301"
@@ -49,22 +49,6 @@ type Data = {
   url: string;
 }
 
-
-// Models
-type Model = {
-  id: string;
-  object: string;
-  owned_by: string;
-  permission: string[];
-}
-
-type ListModelsResponse = {
-  data: Model[];
-  object: string;
-}
-
-// Completions
-
 type Choice = {
   text: string;
   index: number;
@@ -72,13 +56,34 @@ type Choice = {
   finish_reason: string;
 }
 
+type Model = {
+  id: string;
+  object: string;
+  owned_by: string;
+  permission: string[];
+}
+
+// Models
+type ListModelsResponse = {
+  data: Model[];
+  object: string;
+}
+
+type RetrieveModelResponse = {
+  id: string;
+  object: string;
+  owned_by: string;
+  permission: string[];
+}
+
+// Completions
 type Usage = {
   prompt_tokens: number;
   completion_tokens: number;
   total_tokens: number;
 }
 
-type CompletionRequest = {
+type CreateCompletionRequest = {
   model: string;
   prompt: string;
   max_tokens: number;
@@ -90,7 +95,7 @@ type CompletionRequest = {
   stop: string;
 }
 
-type CompletionResponse = {
+type CreateCompletionResponse = {
   id: string;
   object: string;
   created: number;
@@ -99,9 +104,36 @@ type CompletionResponse = {
   usage: Usage;
 }
 
-// Edits
 
-type EditRequest = {
+// Chat
+type CreateChatCompletionRequest = {
+  model: string;
+  messages: string[];
+  temperature: number;
+  top_p: number;
+  n: number;
+  stream: boolean;
+  logprobs: null;
+  stop: string;
+  max_tokens: number;
+  presence_penalty: number;
+  frequency_penalty: number;
+  logit_bias: {};
+  user: string;
+}
+
+type CreateChatCompletionResponse = {
+  id: string;
+  object: string;
+  created: number;
+  choices: Choice[];
+  usage: Usage;
+}
+
+
+
+// Edits
+type CreateEditRequest = {
   model: string;
   input: string;
   instruction: string;
@@ -110,7 +142,7 @@ type EditRequest = {
   top_p: number;
 }  
 
-type EditResponse = {
+type CreateEditResponse = {
   object: string;
   created: number;
   choices: EditChoice[];
@@ -123,7 +155,6 @@ type EditChoice = {
 }
 
 // Moderation
-
 type ModerationRequest = {
   input: string;
 }
@@ -161,7 +192,6 @@ type CategoryScores = {
 }
 
 // Image generation
-
 type ImageRequest = {
   prompt: string;
   n: number;
@@ -221,7 +251,6 @@ type EmbeddingsResponse = {
 }
 
 // Audio
-
 type CreateTranscriptionRequest = {
   file: string;
   model: string;
@@ -359,17 +388,5 @@ type CreateFineTuneResponse = {
 
 
 export type {
-  AvailableModels,
-  Model, 
-  CompletionRequest, 
-  CompletionResponse, 
-  EditRequest, 
-  EditResponse, 
-  ModerationRequest, 
-  ModerationResponse, 
-  ImageRequest,
-  ImageEditRequest,
-  ImageEditResponse,
-  ImageResponse,
-  FileResponse
+  
 };
