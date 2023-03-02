@@ -428,8 +428,53 @@ type RetrieveFineTuneResponse = {
   updated_at: number;
 }
 
-//Moderations
+type CancelFineTuneRequest = {
+  fine_tune_id: string;
+}
 
+type CancelFineTuneResponse = {
+  id: string;
+  object: "fine-tune";
+  model: string;
+  created_at: number;
+  events: {
+    object: "fine-tune-event",
+    created_at: number,
+    level: "info" | "warning" | "error",
+    message: string
+  }[];
+  fine_tuned_model: any | null;
+  hyperparams: any;
+  organization_id: string;
+  result_files: any[];
+  status: "cancelled";
+  validation_files: any[];
+  training_files: any[];
+  updated_at: number;
+}
+
+type ListFineTuneEventsRequest = {
+  stream?: boolean;
+}
+
+type FineTuneEvent = {
+  object: "fine-tune-event";
+  created_at: number;
+  level: "info" | "warning" | "error";
+  message: string;
+}
+
+type ListFineTuneEventsResponse = {
+  object: "list";
+  data: FineTuneEvent[];
+}
+
+//Moderations
+type DeleteFineTuneResponse = {
+  id: string;
+  object: string;
+  deleted: boolean;
+}
 
 
 export type {
@@ -475,5 +520,10 @@ export type {
   CreateFineTuneRequest,
   CreateFineTuneResponse,
   ListFineTunesResponse,
-  RetrieveFineTuneResponse
+  RetrieveFineTuneResponse,
+  CancelFineTuneRequest,
+  CancelFineTuneResponse,
+  ListFineTuneEventsRequest,
+  ListFineTuneEventsResponse,
+  DeleteFineTuneResponse,
 };
