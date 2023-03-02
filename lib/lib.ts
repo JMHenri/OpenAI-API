@@ -1,39 +1,39 @@
 /*
 This file is part of the OpenAI API Deno Client library.
-1. Authentication (done)
+  1. Authentication (done)
 2. Models
-2.1 List models
-2.2 Retrieve a model
+  2.1 ListModels (done)
+  2.2 RetrieveModel (done)
 3. Completions
-3.1 Create a completion
+  3.1 CreateCompletion (done)
 4. Chat
-4.1 Create a chat completion
+  4.1 CreateChatCompletion (done)
 5. Edits
-5.1 Create an edit
+  5.1 CreateEdit (done)
 6. Images
-6.1 Create an image
-6.2 Create image edit
-6.3 Create image variation
+  6.1 CreateImage (done)
+  6.2 CreateImageEdit (done)
+  6.3 CreateImageVariation (done)
 7. Embeddings
-7.1 Create embeddings
+  7.1 CreateEmbedding (done)
 8. Audio
-8.1 Create transcription
-8.2 Create translation
+  8.1 CreateTranscription (done)
+  8.2 CreateTranslation (done)
 9. Files
-9.1 List files
-9.2 Upload file
-9.3 Delete file
-9.4 Retrieve file
-9.5 Retrieve file content
+  9.1 ListFiles (done)
+  9.2 UploadFile (done)
+  9.3 Delete file
+  9.4 Retrieve file
+  9.5 Retrieve file content
 10. Fine-tunes
-10.1 Create fine-tune
-10.2 List fine-tunes
-10.3 Retrieve fine-tune
-10.4 Cancel fine-tune
-10.5 List fine-tune events
-10.6 Delete fine-tune model
+  10.1 Create fine-tune
+  10.2 List fine-tunes
+  10.3 Retrieve fine-tune
+  10.4 Cancel fine-tune
+  10.5 List fine-tune events
+  10.6 Delete fine-tune model
 11. Moderations
-11.1 Create moderation
+  11.1 Create moderation
 */
 import {
   AvailableModels,
@@ -76,7 +76,16 @@ import {
   RetrieveFileResponse,
   RetrieveFileContentRequest,
   CreateFineTuneRequest,
-  CreateFineTuneResponse
+  CreateFineTuneResponse,
+  ListFineTunesResponse,
+  RetrieveFineTuneResponse,
+  CancelFineTuneRequest,
+  CancelFineTuneResponse,
+  ListFineTuneEventsRequest,
+  ListFineTuneEventsResponse,
+  DeleteFineTuneResponse,
+  CreateModerationRequest,
+  CreateModerationResponse,
 } from "./types/types";
 
 
@@ -259,8 +268,18 @@ export class OpenAI {
     return response.json();
   }
 
+
+
+
+
+
+
+
+
+  
+
   // Fine-Tunes
-  async getFineTune(fineTuneId): Promise<GetFineTuneResponse> {
+  async retrieveFineTune(fineTuneId): Promise<GetFineTuneResponse> {
     const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
       method: "GET",
       headers: {
@@ -271,7 +290,7 @@ export class OpenAI {
     return response.json();
   }
 
-  async getFineTunes(): Promise<FineTunes> {
+  async listFineTunes(): Promise<GetFinetun> {
     const response = await fetch("https://api.openai.com/v1/fine-tunes", {
       method: "GET",
       headers: {
