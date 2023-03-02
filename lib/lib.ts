@@ -22,18 +22,18 @@ This file is part of the OpenAI API Deno Client library.
 9. Files
   9.1 ListFiles (done)
   9.2 UploadFile (done)
-  9.3 Delete file
-  9.4 Retrieve file
-  9.5 Retrieve file content
+  9.3 DeleteFile (done)
+  9.4 RetrieveFile (done)
+  9.5 RetrieveFileContent (done)
 10. Fine-tunes
-  10.1 Create fine-tune
-  10.2 List fine-tunes
-  10.3 Retrieve fine-tune
-  10.4 Cancel fine-tune
-  10.5 List fine-tune events
-  10.6 Delete fine-tune model
+  10.1 CreateFineTune (done)
+  10.2 ListFineTunes (done)
+  10.3 Retrieve fine-tune (done)
+  10.4 CancelFineTune (done)
+  10.5 ListFineTuneEvents (done)
+  10.6 DeleteFineTuneModel (done)
 11. Moderations
-  11.1 Create moderation
+  11.1 Create moderation (done)
 */
 import {
   AvailableModels,
@@ -268,40 +268,38 @@ export class OpenAI {
     return response.json();
   }
 
+  async deleteFile(fileId: string): Promise<DeleteFileResponse> {
+    const response = await fetch(`https://api.openai.com/v1/files/${fileId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
 
+  async retrieveFile(fileId: string): Promise<RetrieveFileResponse> {
+    const response = await fetch(`https://api.openai.com/v1/files/${fileId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
 
-
-
-
-
-
-
-  
+  async retrieveFileContent(fileId: string): Promise<Blob> {
+    const response = await fetch(`https://api.openai.com/v1/files/${fileId}/content`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
 
   // Fine-Tunes
-  async retrieveFineTune(fineTuneId): Promise<GetFineTuneResponse> {
-    const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    return response.json();
-  }
-
-  async listFineTunes(): Promise<GetFinetun> {
-    const response = await fetch("https://api.openai.com/v1/fine-tunes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    return response.json();
-  }
-
-  async createFineTune(fileId: string, model: AvailableModels): Promise<FineTuneResponse> {
+  async createFineTune(fileId: string, model: AvailableModels): Promise<CreateFineTuneResponse> {
     const response = await fetch(`https://api.openai.com/v1/fine-tunes`, {
       method: "POST",
       headers: {
@@ -316,6 +314,61 @@ export class OpenAI {
     return response.json();
   }
 
+  async listFineTunes(): Promise<ListFineTunesResponse> {
+    const response = await fetch("https://api.openai.com/v1/fine-tunes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
+
+  async retrieveFineTune(fineTuneId): Promise<RetrieveFineTuneResponse> {
+    const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
+
+  async cancelFineTune(fineTuneId): Promise<CancelFineTuneResponse> {
+    const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
+
+  async listFineTuneEvents(fineTuneId): Promise<ListFineTuneEventsResponse> {
+    const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}/events`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
+
+  async deleteFineTuneModel(fineTuneId): Promise<DeleteFineTuneResponse> {
+    const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}/model`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    return response.json();
+  }
+
   // Moderations
   async createModeration(request: ModerationRequest): Promise<ModerationResponse> {
     const response = await fetch("https://api.openai.com/v1/moderations", {
@@ -325,16 +378,6 @@ export class OpenAI {
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-  async getModels(): Promise<Models> {
-    const response = await fetch("https://api.openai.com/v1/models", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
     });
     return response.json();
   }
