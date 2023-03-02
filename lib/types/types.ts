@@ -37,12 +37,21 @@ This file is part of the OpenAI API Deno Client library.
 */
 
 // General
-type AvailableModels = {
-  model: "ada" | "babbage" | "curie" | "davinci"
+// type AvailableModels = {
+//   model: "ada" | "babbage" | "curie" | "davinci"
+// }
+//enum version
+enum AvailableModels {
+  ada = "ada",
+  babbage = "babbage",
+  curie = "curie",
+  davinci = "davinci",
 }
 
-type AvailableChatModels = {
-  model: "gpt-3.5-turbo" | "gpt-3.5-turbo-0301"
+
+enum AvailableChatModels {
+"gpt-3.5-turbo" = "gpt-3.5-turbo",
+"gpt-3.5-turbo-0301" = "gpt-3.5-turbo-0301",
 }
 
 type Data = {
