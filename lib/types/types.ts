@@ -509,7 +509,6 @@ export type {
   ImageRequest,
   ImageEditRequest,
   ImageVariationRequest,
-  ImageEditResponse,
   ImageResponse,
   CreateEmbeddingRequest,
   CreateEmbeddingsResponse,

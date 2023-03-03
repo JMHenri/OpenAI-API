@@ -14,7 +14,7 @@ export class OpenAIAudio {
   }
   
   // Transcribes audio into the input language. (Audio to Text)
-  async createTranscription(request: CreateTranscriptionRequest): Promise<CreateTranscriptionResponse> {
+  async transcription(request: CreateTranscriptionRequest): Promise<CreateTranscriptionResponse> {
     const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ export class OpenAIAudio {
   }
 
   // Translates audio into into English.
-  async createTranslation(request: CreateTranslationRequest): Promise<CreateTranslationResponse> {
+  async translation(request: CreateTranslationRequest): Promise<CreateTranslationResponse> {
     const response = await fetch("https://api.openai.com/v1/audio/translations", {
       method: "POST",
       headers: {
