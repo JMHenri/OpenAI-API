@@ -12,7 +12,7 @@ deno install --import-map=import_map.json --allow-net --allow-env https://deno.l
 ## Usage
 To use this library in your project, you must first instantiate the OpenAI class and provide it with your API key:
 ```
-import { OpenAI } from "https://deno.land/x/openai/mod.ts";
+import { OpenAI } from "https://deno.land/x/openai_api/mod.ts";
 
 const openai = new OpenAI("your-api-key-here");
 ```
@@ -35,7 +35,7 @@ console.log(completions.choices[0].text);
 This would generate a short text completion based on the prompt "Once upon a time" using the Davinci engine.
 
 ## API Reference
-For a full list of the API calls that are available in this library, please refer to the OpenAI API documentation
+For a full list of the API calls that are available in this library, please refer to the [OpenAI](https://platform.openai.com/docs/api-reference/introduction) API documentation
 
 ## License
 
