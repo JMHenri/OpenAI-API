@@ -86,7 +86,7 @@ import {
   DeleteFineTuneResponse,
   CreateModerationRequest,
   CreateModerationResponse,
-} from "./types/types";
+} from "./types/types.ts";
 
 
 export class OpenAI {
