@@ -35,6 +35,8 @@ This file is part of the OpenAI API Deno Client library.
 11. Moderations
   11.1 Create moderation
 */
+import { OpenAIImage } from "./openai.image.ts";
+
 import {
   AvailableModels,
   AvailableChatModels,
@@ -56,17 +58,8 @@ import {
   Result,
   Categories,
   CategoryScores,
-  ImageRequest,
-  ImageEditRequest,
-  ImageVariationRequest,
-  ImageEditResponse,
-  ImageResponse,
   CreateEmbeddingRequest,
   CreateEmbeddingsResponse,
-  CreateTranscriptionRequest,
-  CreateTranscriptionResponse,
-  CreateTranslationRequest,
-  CreateTranslationResponse,
   ListFilesResponse,
   UploadFileRequest,
   UploadFileResponse,
@@ -91,12 +84,14 @@ import {
 
 export class OpenAI {
   private apiKey: string;
+  public readonly image: OpenAIImage;
   
   // Authentication
   constructor(apiKey: string) {
     this.apiKey = apiKey;
+    this.image = new OpenAIImage(apiKey);
   }
-
+  
   // ------------------------------ //
   // ----- Standard Prompting ----- //
   // ------------------------------ //
@@ -135,79 +130,6 @@ export class OpenAI {
   // Given a chat conversation, the model will return a chat completion response.
   async createChatCompletion(request: CreateChatCompletionRequest): Promise<CreateChatCompletionResponse> {
     const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-
-  // ------------------ //
-  // ----- Images ----- //
-  // ------------------ //
-
-  // Given a prompt and/or an input image, the model will generate a new image.
-  async createImage(request: ImageRequest): Promise<ImageResponse> {
-    const response = await fetch("https://api.openai.com/v1/images/generations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-
-  // Creates an edited or extended image given an original image and a prompt.
-  async createImageEdit(request: ImageEditRequest): Promise<ImageResponse> {
-    const response = await fetch("https://api.openai.com/v1/images/edits", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-
-  // Creates a variation of a given image.
-  async createImageVariation(request: ImageVariationRequest): Promise<ImageResponse> {
-    const response = await fetch("https://api.openai.com/v1/images/variations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-
-  // ----------------- //
-  // ----- Audio ----- //
-  // ----------------- //
-
-  // Transcribes audio into the input language. (Audio to Text)
-  async createTranscription(request: CreateTranscriptionRequest): Promise<CreateTranscriptionResponse> {
-    const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(request),
-    });
-    return response.json();
-  }
-
-  // Translates audio into into English.
-  async createTranslation(request: CreateTranslationRequest): Promise<CreateTranslationResponse> {
-    const response = await fetch("https://api.openai.com/v1/audio/translations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
