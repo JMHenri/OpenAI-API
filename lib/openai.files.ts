@@ -49,7 +49,7 @@ export class OpenAIFiles {
   }
 
   // Returns information about a specific file.
-  async retrieve(fileId: string): Promise<RetrieveFileResponse> {
+  async info(fileId: string): Promise<RetrieveFileResponse> {
     const response = await fetch(`https://api.openai.com/v1/files/${fileId}`, {
       method: "GET",
       headers: {

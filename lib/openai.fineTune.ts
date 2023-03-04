@@ -46,7 +46,7 @@ export class OpenAIFineTune {
   }
 
   // Gets info about the fine-tune job.
-  async retrieve(fineTuneId): Promise<RetrieveFineTuneResponse> {
+  async info(fineTuneId): Promise<RetrieveFineTuneResponse> {
     const response = await fetch(`https://api.openai.com/v1/fine-tunes/${fineTuneId}`, {
       method: "GET",
       headers: {

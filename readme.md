@@ -29,45 +29,45 @@ This would generate a short text completion based on the prompt "Once upon a tim
 The following APIs are currently available:
 
 **Audio**:
-- openai.audio.transcription
-- openai.audio.translation
+- openai.audio.transcription: Transcribe audio to input language. (Audio to Text)
+- openai.audio.translation: Translates audio into into English.
 
 **Chat**:
-- openai.chat.complete
+- openai.chat.complete: Return a chat completion response.
 
 **Embeddings**:
-- openai.embedding.create
+- openai.embedding.create: Create embedding vector representing the input text.
 
 **Files**:
-- openai.files.list
-- openai.files.upload
-- openai.files.delete
-- openai.files.retrieve
-- openai.files.contents
+- openai.files.list: Return files that belong to user's organization.
+- openai.files.upload: Upload file to be used for OpenAI features.
+- openai.files.delete: Delete file.
+- openai.files.info: Retrieve information about a file.
+- openai.files.contents: Retrieve contents of a file.
 
 **Fine-Tuning**:
-- openai.fineTune.create
-- openai.fineTune.delete
-- openai.fineTune.list
-- openai.fineTune.retrieve
-- openai.fineTune.cancel
-- openai.fineTune.listEvents
+- openai.fineTune.create: Creates a job to fine-tunes a specified model.
+- openai.fineTune.delete: Deletes a fine-tune model.
+- openai.fineTune.list: Lists fine-tuned models.
+- openai.fineTune.info: Gets info about the fine-tune job.
+- openai.fineTune.cancel: Cancels a fine-tune job.
+- openai.fineTune.listEvents: Get fine-grained status updates for a fine-tune job.
 
 **Image**:
-- openai.image.create
-- openai.image.edit
-- openai.image.variation
+- openai.image.create: Generate a new image.
+- openai.image.edit: Creates an edited or extended image with an original image and prompt.
+- openai.image.variation: Creates a variation of a given image.
 
 **Models**:
-- openai.models.list
-- openai.models.retrieve
+- openai.models.list: Lists currently available models, provides basic info.
+- openai.models.retrieve: Retrieves a model instance, provides basic info.
 
 **Moderation**:
-- openai.moderation.check
+- openai.moderation.check: Classifies if text violates OpenAI's Content Policy
 
 **Text**:
-- openai.text.complete
-- openai.text.edit
+- openai.text.complete: Model returns one or more predicted completions based on prompt.
+- openai.text.edit: Creates a new edit for the provided input, instruction, and parameters.
 
 ## API Reference
 For a list of API calls that are available, you can also refer to the [OpenAI](https://platform.openai.com/docs/api-reference/introduction) API documentation
