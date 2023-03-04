@@ -1,8 +1,24 @@
 import { OpenAISubClass } from "./openai.ts";
-import {
-  CreateEmbeddingRequest,
-  CreateEmbeddingsResponse,
-} from "./types/types.ts";
+
+type CreateEmbeddingRequest = {
+  model: string,
+  input: string | string[],
+  user: string,
+}
+
+type CreateEmbeddingsResponse = {
+  object: string;
+  data: {
+    object: string;
+    embedding: number[];
+    index: number;
+  }[];
+  model: string;
+  usage: {
+    prompt_tokens: number;
+    total_tokens: number;
+  };
+}
 
 export class OpenAIEmbedding extends OpenAISubClass {
 

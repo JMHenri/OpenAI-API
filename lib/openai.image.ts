@@ -1,10 +1,38 @@
 import { OpenAISubClass } from "./openai.ts";
-import {
-  ImageRequest,
-  ImageEditRequest,
-  ImageVariationRequest,
-  ImageResponse,
-} from "./types/types.ts";
+
+type Data = {
+  url: string;
+}
+
+type ImageRequest = {
+  prompt: string;
+  n: number;
+  size: string;
+  response_format: string;
+}
+
+type ImageEditRequest = {
+  image: string;
+  mask?: string;
+  prompt: string;
+  n?: number;
+  size?: '256x256' | '512x512' | '1024x1024';
+  response_format?: 'url' | 'b64_json';
+  user?: string;
+};
+
+type ImageVariationRequest = {
+  prompt: string;
+  n?: number;
+  size?: '256x256' | '512x512' | '1024x1024';
+  response_format?: 'url' | 'b64_json';
+  user?: string;
+};
+
+type ImageResponse = {
+  created: number;
+  data: Data[];
+}
 
 export class OpenAIImage extends OpenAISubClass {
 

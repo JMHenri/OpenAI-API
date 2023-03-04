@@ -1,10 +1,29 @@
 import { OpenAISubClass } from "./openai.ts";
-import {
-  CreateTranscriptionRequest,
-  CreateTranscriptionResponse,
-  CreateTranslationRequest,
-  CreateTranslationResponse,
-} from "./types/types.ts";
+
+type CreateTranscriptionRequest = {
+  file: string;
+  model: string;
+  prompt?: string;
+  response_format?: string;
+  temperature?: number;
+  language?: string;
+}
+
+type CreateTranscriptionResponse = {
+  text: string;
+}
+
+type CreateTranslationRequest = {
+  file: string;
+  model: string;
+  prompt?: string;
+  response_format?: string;
+  temperature?: number;
+}
+
+type CreateTranslationResponse = {
+  text: string;
+}
 
 export class OpenAIAudio extends OpenAISubClass {
 

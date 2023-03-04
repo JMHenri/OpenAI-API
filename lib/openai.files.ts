@@ -1,11 +1,44 @@
 import { OpenAISubClass } from "./openai.ts";
-import {
-  ListFilesResponse,
-  UploadFileRequest,
-  UploadFileResponse,
-  DeleteFileResponse,
-  RetrieveFileResponse,
-} from "./types/types.ts";
+
+type ListFilesResponse = {
+  object: "file";
+  id: string;
+  purpose: "fine-tune" | "fine-tune-results" | "fine-tune-train" | "fine-tune-validate";
+  filename: string;
+  bytes: number;
+  created_at: number;
+  status: "uploaded" | "processed" | "failed";
+  status_details: any | null;
+}
+
+type UploadFileRequest = {
+  file: string;
+  purpose: string;
+}
+
+type UploadFileResponse = {
+  id: string;
+  object: string;
+  bytes: number;
+  created_at: number;
+  filename: string;
+  purpose: string;
+}
+
+type DeleteFileResponse = {
+  id: string;
+  object: string;
+  deleted: boolean;
+}
+
+type RetrieveFileResponse = {
+  id: string;
+  object: string;
+  bytes: number;
+  created_at: number;
+  filename: string;
+  purpose: string;
+}
 
 export class OpenAIFiles extends OpenAISubClass {
 

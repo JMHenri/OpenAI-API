@@ -1,8 +1,29 @@
 import { OpenAISubClass } from "./openai.ts";
-import {
-  CreateChatCompletionRequest,
-  CreateChatCompletionResponse,
-} from "./types/types.ts";
+import { Choice, Usage } from "./openai.text.ts";
+
+type CreateChatCompletionRequest = {
+  model: string;
+  messages: string[];
+  temperature: number;
+  top_p: number;
+  n: number;
+  stream: boolean;
+  logprobs: null;
+  stop: string;
+  max_tokens: number;
+  presence_penalty: number;
+  frequency_penalty: number;
+  logit_bias: {};
+  user: string;
+}
+
+type CreateChatCompletionResponse = {
+  id: string;
+  object: string;
+  created: number;
+  choices: Choice[];
+  usage: Usage;
+}
 
 export class OpenAIChat extends OpenAISubClass {
 
