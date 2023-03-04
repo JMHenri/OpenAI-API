@@ -39,4 +39,16 @@ export class OpenAISubClass {
   constructor(apiKey: string) {
     this.apiKey = apiKey;
   }
+  
+  async post(url: string, request: unknown) {
+    const response = await fetch(`https://api.openai.com/v1/${url}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(request),
+    });
+    return response.json();
+  }
 }

@@ -14,18 +14,10 @@ export class OpenAIFineTune extends OpenAISubClass {
   // Creates a job that fine-tunes a specified model from a given dataset.
   // Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
   async create(fileId: string, model: AvailableModels): Promise<CreateFineTuneResponse> {
-    const response = await fetch(`https://api.openai.com/v1/fine-tunes`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        training_file: fileId,
-        model: model
-      })
+    return await this.post("fine-tunes", {
+      training_file: fileId,
+      model: model
     });
-    return response.json();
   }
 
   // List your organization's fine-tuning jobs

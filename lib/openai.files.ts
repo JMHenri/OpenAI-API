@@ -22,14 +22,19 @@ export class OpenAIFiles extends OpenAISubClass {
 
   // Upload a file that contains document(s) to be used across various endpoints/features.
   async upload(file: UploadFileRequest): Promise<UploadFileResponse> {
-    const response = await fetch("https://api.openai.com/v1/files", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(file),
-    });
-    return response.json();
+    throw new Error(`Cannot upload file. Library does not support it at this time.`);
+    
+    // TODO:
+    // This is not a proper file upload. Need multipart here.
+    
+    // const response = await fetch("https://api.openai.com/v1/files", {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${this.apiKey}`,
+    //   },
+    //   body: JSON.stringify(file),
+    // });
+    // return response.json();
   }
 
   // Delete a file.
