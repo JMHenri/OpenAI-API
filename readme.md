@@ -1,5 +1,5 @@
 # OpenAI Deno Library
-This library exports OpenAI API calls through the OpenAI class.
+This library exports OpenAI API calls through the OpenAI class. Refer to the [OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction) for more details.
 
 ## Usage
 Instantiate the OpenAI class with your API key, then call the desired method:
@@ -64,9 +64,6 @@ The following APIs are currently available:
 **Text**:
 - openai.text.complete(request): *Model returns one or more predicted completions based on prompt.*
 - openai.text.edit(request): *Creates a new edit for the provided input, instruction, and parameters.*
-
-## API Reference
-For a list of API calls that are available, you can also refer to the [OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction).
 
 ## License
 This library is licensed under the [MIT License](https://mit-license.org/).
