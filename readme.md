@@ -2,28 +2,24 @@
 This library exports OpenAI API calls through the OpenAI class.
 
 ## Usage
-To use this library, you must instantiate the OpenAI class and provide it with your API key:
+Instantiate the OpenAI class with your API key, then call the desired method:
+
 ```
 import { OpenAI } from "https://deno.land/x/openai_api/mod.ts";
 
 const openai = new OpenAI("your-api-key-here");
-```
 
-Once instantiated, you can make OpenAI API calls through the corresponding method. For example, to use the GPT-3 API to generate text, you would call the openai.text.complete() method:
-
-```
-const prompt = "Once upon a time";
-const completions = await openai.text.complete({
+const textCompletion = await openai.text.complete({
   model: "davinci",
-  prompt,
+  prompt: "Once upon a time",
   maxTokens: 50,
   n: 1,
 });
 
-console.log(completions.choices[0].text);
+console.log(textCompletion.choices[0].text);
 ```
 
-This would generate a short text completion based on the prompt "Once upon a time" using the Davinci engine.
+The above generates a short text completion based on the prompt "Once upon a time" using the Davinci engine.
 
 ## APIs Available
 The following APIs are currently available:
@@ -70,7 +66,7 @@ The following APIs are currently available:
 - openai.text.edit(request): *Creates a new edit for the provided input, instruction, and parameters.*
 
 ## API Reference
-For a list of API calls that are available, you can also refer to the [OpenAI](https://platform.openai.com/docs/api-reference/introduction) API documentation
+For a list of API calls that are available, you can also refer to the [OpenAI API documentation](https://platform.openai.com/docs/api-reference/introduction).
 
 ## License
-This library is licensed under the MIT License.
+This library is licensed under the [MIT License](https://mit-license.org/).
