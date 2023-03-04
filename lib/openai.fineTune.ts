@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   AvailableModels,
   CreateFineTuneResponse,
@@ -9,13 +9,8 @@ import {
   DeleteFineTuneResponse,
 } from "./types/types.ts";
 
-export class OpenAIFineTune {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIFineTune extends OpenAISubClass {
+
   // Creates a job that fine-tunes a specified model from a given dataset.
   // Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
   async create(fileId: string, model: AvailableModels): Promise<CreateFineTuneResponse> {

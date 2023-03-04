@@ -1,16 +1,11 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   ModerationRequest,
   ModerationResponse,
 } from "./types/types.ts";
 
-export class OpenAIModeration {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIModeration extends OpenAISubClass {
+
   // Classifies if text violates OpenAI's Content Policy
   async check(request: ModerationRequest): Promise<ModerationResponse> {
     const response = await fetch("https://api.openai.com/v1/moderations", {

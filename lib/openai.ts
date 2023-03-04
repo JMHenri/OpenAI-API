@@ -32,3 +32,11 @@ export class OpenAI {
     this.moderation = new OpenAIModeration(apiKey);
   }
 }
+
+export class OpenAISubClass {
+  protected apiKey: string;
+  
+  constructor(apiKey: string) {
+    this.apiKey = apiKey;
+  }
+}

@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   ListFilesResponse,
   UploadFileRequest,
@@ -7,13 +7,8 @@ import {
   RetrieveFileResponse,
 } from "./types/types.ts";
 
-export class OpenAIFiles {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIFiles extends OpenAISubClass {
+
   // Returns a list of files that belong to the user's organization.
   async list(): Promise<ListFilesResponse> {
     const response = await fetch("https://api.openai.com/v1/files", {

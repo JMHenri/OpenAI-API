@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   AvailableModels,
   AvailableChatModels,
@@ -6,13 +6,8 @@ import {
   RetrieveModelResponse,
 } from "./types/types.ts";
 
-export class OpenAIModels {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIModels extends OpenAISubClass {
+
   // Lists the currently available models, and provides basic information about each one such as the owner and availability.
   async list(): Promise<ListModelsResponse> {
     const response = await fetch("https://api.openai.com/v1/models", {

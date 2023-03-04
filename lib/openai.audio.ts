@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   CreateTranscriptionRequest,
   CreateTranscriptionResponse,
@@ -6,13 +6,8 @@ import {
   CreateTranslationResponse,
 } from "./types/types.ts";
 
-export class OpenAIAudio {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIAudio extends OpenAISubClass {
+
   // Transcribes audio into the input language. (Audio to Text)
   async transcription(request: CreateTranscriptionRequest): Promise<CreateTranscriptionResponse> {
     const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {

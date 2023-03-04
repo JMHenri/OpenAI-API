@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   CreateCompletionRequest,
   CreateCompletionResponse,
@@ -6,13 +6,8 @@ import {
   CreateEditResponse,
 } from "./types/types.ts";
 
-export class OpenAIText {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIText extends OpenAISubClass {
+
   // Given a prompt, the model will return one or more predicted completions.
   // Can also return the probabilities of alternative tokens at each position.
   async complete(request: CreateCompletionRequest): Promise<CreateCompletionResponse> {

@@ -1,4 +1,4 @@
-
+import { OpenAISubClass } from "./openai.ts";
 import {
   ImageRequest,
   ImageEditRequest,
@@ -6,13 +6,8 @@ import {
   ImageResponse,
 } from "./types/types.ts";
 
-export class OpenAIImage {
-  private apiKey: string;
-  
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-  
+export class OpenAIImage extends OpenAISubClass {
+
   // Given a prompt and/or an input image, the model will generate a new image.
   async create(request: ImageRequest): Promise<ImageResponse> {
     const response = await fetch("https://api.openai.com/v1/images/generations", {
