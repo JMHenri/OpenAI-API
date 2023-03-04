@@ -40,6 +40,6 @@ export class OpenAIModeration extends OpenAISubClass {
 
   // Classifies if text violates OpenAI's Content Policy
   async check(request: ModerationRequest): Promise<ModerationResponse> {
-    return await this.post("moderations", request);
+    return await this.post<ModerationResponse>("moderations", request);
   }
 }

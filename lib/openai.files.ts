@@ -44,13 +44,7 @@ export class OpenAIFiles extends OpenAISubClass {
 
   // Returns a list of files that belong to the user's organization.
   async list(): Promise<ListFilesResponse> {
-    const response = await fetch("https://api.openai.com/v1/files", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    return response.json();
+    return await this.get<ListFilesResponse>("files");
   }
 
   // Upload a file that contains document(s) to be used across various endpoints/features.
@@ -83,23 +77,11 @@ export class OpenAIFiles extends OpenAISubClass {
 
   // Returns information about a specific file.
   async info(fileId: string): Promise<RetrieveFileResponse> {
-    const response = await fetch(`https://api.openai.com/v1/files/${fileId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    return response.json();
+    return await this.get<RetrieveFileResponse>(`files/${fileId}`);
   }
 
   // Returns the contents of the specified file
   async contents(fileId: string): Promise<Blob> {
-    const response = await fetch(`https://api.openai.com/v1/files/${fileId}/content`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    return response.json();
+    return await this.get<Blob>(`files/${fileId}/content`);
   }
 }

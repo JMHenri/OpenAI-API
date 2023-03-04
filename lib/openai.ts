@@ -40,7 +40,7 @@ export class OpenAISubClass {
     this.apiKey = apiKey;
   }
   
-  async post(url: string, request: unknown) {
+  async post<T>(url: string, request: unknown): Promise<T> {
     const response = await fetch(`https://api.openai.com/v1/${url}`, {
       method: "POST",
       headers: {
@@ -48,6 +48,16 @@ export class OpenAISubClass {
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify(request),
+    });
+    return response.json();
+  }
+  
+  async get<T>(url: string): Promise<T> {
+    const response = await fetch(`https://api.openai.com/v1/${url}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
     });
     return response.json();
   }

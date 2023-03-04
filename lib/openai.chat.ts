@@ -29,6 +29,6 @@ export class OpenAIChat extends OpenAISubClass {
 
   // Given a chat conversation, the model will return a chat completion response.
   async complete(request: CreateChatCompletionRequest): Promise<CreateChatCompletionResponse> {
-    return await this.post("chat/completions", request);
+    return await this.post<CreateChatCompletionResponse>("chat/completions", request);
   }
 }
